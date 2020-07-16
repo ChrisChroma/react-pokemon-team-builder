@@ -1,6 +1,8 @@
 .App {
   text-align: center;
+  height: 100vh;
 }
+
 body {
   width: 100%;
 }
@@ -27,6 +29,26 @@ body {
   color: white;
 }
 
+.App section {
+  margin: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+
+.App section a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: cornflowerblue;
+  padding: 20px;
+  border-radius: 5px;
+  min-height: 60px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -43,18 +65,20 @@ body {
   width: 100%;
 }
 .nav-wrapper {
-  background-color: rgba(10, 168, 84, 0.692);
+  background-color: #c62828;
 }
 
 @font-face {
   font-family: "Material Icons";
   font-style: normal;
   font-weight: 400;
-  src: local("Material Icons"),
-       local("MaterialIcons-Regular"),
-       url(https://rawgit.com/google/material-design-icons/master/iconfont/MaterialIcons-Regular.woff2) format("woff2"),
-       url(https://rawgit.com/google/material-design-icons/master/iconfont/MaterialIcons-Regular.woff) format("woff"),
-       url(https://rawgit.com/google/material-design-icons/master/iconfont/MaterialIcons-Regular.ttf) format("truetype");
+  src: local("Material Icons"), local("MaterialIcons-Regular"),
+    url(https://rawgit.com/google/material-design-icons/master/iconfont/MaterialIcons-Regular.woff2)
+      format("woff2"),
+    url(https://rawgit.com/google/material-design-icons/master/iconfont/MaterialIcons-Regular.woff)
+      format("woff"),
+    url(https://rawgit.com/google/material-design-icons/master/iconfont/MaterialIcons-Regular.ttf)
+      format("truetype");
 }
 
 .material-icons {
@@ -82,5 +106,3 @@ body {
   /* Support for IE. */
   font-feature-settings: "liga";
 }
-
-
