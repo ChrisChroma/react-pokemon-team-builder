@@ -1,5 +1,5 @@
 const Pokemon = require("../models/pokemon");
-const Trainer = require("../models/trainer");
+const Trainer = require("../models/user");
 
 async function remove(req, res) {
   console.log(req.params.teamId);

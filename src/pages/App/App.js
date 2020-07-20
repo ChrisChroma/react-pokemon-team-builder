@@ -7,6 +7,7 @@ import SignupPage from "../SignupPage/SignupPage";
 import userService from "../../services/userService";
 import { getAllPokemon } from "../../services/pokemon-api";
 import PokedexPage from "../PokedexPage/PokedexPage";
+import TrainerProfilePage from "../TrainerProfilePage/TrainerProfilePage";
 
 class App extends Component {
   state = {
@@ -17,6 +18,7 @@ class App extends Component {
   async componentDidMount() {
     const pokemon = await getAllPokemon();
     console.log(pokemon.results);
+    console.log(this.state.user);
     this.setState({ pokemon: pokemon.results });
   }
 
@@ -70,13 +72,24 @@ class App extends Component {
                 ))}
               </section>
             )}
-          ></Route>
+          />
           <Route
             path="/pokemon/:idx"
             render={(props) => (
-              <PokedexPage {...props} getPokemon={this.getPokemon} />
+              <PokedexPage
+                {...props}
+                getPokemon={this.getPokemon}
+                email={this.state.user.email}
+              />
             )}
-          ></Route>
+          />
+          <Route
+            exact
+            path="/trainer/"
+            render={({ history }) => (
+              <TrainerProfilePage {...this.state.user} />
+            )}
+          />
         </div>
       </>
     );
