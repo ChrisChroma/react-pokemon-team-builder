@@ -8,6 +8,11 @@ router.post(
   "/trainers/teams/remove/:teamId/:pokemonIdx",
   trainersCtrl.deleteFromTeam
 );
+router.post("/trainers/favorites/add/:pokemonId", trainersCtrl.addToFavorites);
+router.post(
+  "/trainers/favorites/remove/:pokemonIdx",
+  trainersCtrl.deleteFromFavorites
+);
 router.post("/trainers/teams/new", trainersCtrl.createTeam);
 
 module.exports = router;

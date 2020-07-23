@@ -80,6 +80,7 @@ class App extends Component {
                 {...props}
                 getPokemon={this.getPokemon}
                 email={this.state.user.email}
+                user={this.state.user}
               />
             )}
           />

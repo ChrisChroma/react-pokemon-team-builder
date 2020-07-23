@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./PokedexPage.css";
-import { getPokemonDetails } from "../../services/pokemon-api";
-import { addPokemonToTeam } from "../../services/teamService";
 
-const PokedexPage = ({ match, email }) => {
+import { getPokemonDetails } from "../../services/pokemon-api";
+import {
+  addPokemonToTeam,
+  addPokemonToFavorite,
+  removePokemonFromFavorite,
+} from "../../services/teamService";
+
+const PokedexPage = ({ match, email, user }) => {
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
     (async () => {
       const pokemon = await getPokemonDetails(match.params.idx);
-      console.log(pokemon);
       setPokemon(pokemon);
     })();
   }, [match.params.idx]);
 
   const handleAddTeam = async () => {
     const res = addPokemonToTeam(pokemon.id);
+    console.log("res", res);
+  };
+
+  const handleAddFavorite = async () => {
+    const res = addPokemonToFavorite(pokemon.id);
+    console.log("res", res);
+  };
+
+  const handleRemoveFavorite = async () => {
+    const res = removePokemonFromFavorite(pokemon.id);
+    console.log("res", res);
   };
 
   return (
@@ -30,7 +45,15 @@ const PokedexPage = ({ match, email }) => {
           </div>
           <div>
             <button onClick={handleAddTeam}>Add to Team</button>
-            <button>Favorite</button>
+            <button
+              onClick={
+                user.favorites.find((pokemon) => pokemon.id)
+                  ? handleRemoveFavorite
+                  : handleAddFavorite
+              }
+            >
+              Favorite
+            </button>
           </div>
           <div className="PokemonPage-pokemon">
             <span>Name:</span>

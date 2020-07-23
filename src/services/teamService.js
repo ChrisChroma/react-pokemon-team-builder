@@ -15,6 +15,22 @@ export async function addPokemonToTeam(id, email) {
   }
 }
 
+export async function deleteTeam(name, email) {
+  try {
+    const res = await fetch(`${BASE_URL}/trainers/teams/new`, {
+      mode: "cors",
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        name: name,
+      }),
+    });
+    return await res.json();
+  } catch (error) {
+    throw new Error("unable to add pokemon");
+  }
+}
+
 export async function createTeam(name, email) {
   try {
     const res = await fetch(`${BASE_URL}/trainers/teams/new`, {
@@ -26,6 +42,36 @@ export async function createTeam(name, email) {
       }),
     });
     return await res.json();
+  } catch (error) {
+    throw new Error("unable to add pokemon");
+  }
+}
+
+export async function addPokemonToFavorite(id, email) {
+  try {
+    const res = await fetch(`${BASE_URL}/trainers/favorites/add/${id}`, {
+      mode: "cors",
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
+    return res.json();
+  } catch (error) {
+    throw new Error("unable to add pokemon");
+  }
+}
+
+export async function removePokemonFromFavorite(id, email) {
+  try {
+    const res = await fetch(`${BASE_URL}/trainers/favorites/remove/${id}`, {
+      mode: "cors",
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
+    return res.json();
   } catch (error) {
     throw new Error("unable to add pokemon");
   }

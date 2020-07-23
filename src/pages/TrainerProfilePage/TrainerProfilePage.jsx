@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createTeam } from "../../services/teamService";
+import { createTeam, deleteTeam } from "../../services/teamService";
 
 export default function TrainerProfilePage({ name, team, email }) {
   const [teamName, setTeamName] = useState(null);
@@ -14,6 +14,11 @@ export default function TrainerProfilePage({ name, team, email }) {
     await createTeam(teamName, email);
   };
 
+  const handleDeleteTeam = async (event) => {
+    event.preventDefault();
+    await deleteTeam(teamName, email);
+  };
+
   return (
     <div>
       <form onSubmit={handleCreateTeam}>
@@ -26,7 +31,19 @@ export default function TrainerProfilePage({ name, team, email }) {
         />
         <button type="submit">Create Team</button>
       </form>
-      <ul>{team && team.map((pokemon) => <li>{pokemon.name}</li>)}</ul>
+      <div>
+        <h2>Your Teams:</h2>
+        <ul>
+          {team &&
+            team.map((pokemon) => (
+              <li>
+                {pokemon.name}
+                <button onClick={handleDeleteTeam}>Delete Team</button>
+                <button>Change Name</button>
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 }
