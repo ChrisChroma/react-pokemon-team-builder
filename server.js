@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 
 app.use("/api/users", userRouter);
 app.use("/api", trainerRouter);
-app.use("/api", pokemonRouter);
+app.use("/api/pokemon", pokemonRouter);
 app.use("/api", teamRouter);
 
 app.get("/*", function (req, res) {
