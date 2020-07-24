@@ -25,7 +25,7 @@ Log in with your Google account to create your trainer profile. From there, you 
 
 You can view the Trello board used to plan out features during development [here](https://trello.com/b/544RN8KZ/poketeam).
 
-You can view and use the app from [here](https://intense-beyond-77900.herokuapp.com/).
+You can view and use the app from [here](https://evening-everglades-80830.herokuapp.com/).
 
 # Screenshots
 
