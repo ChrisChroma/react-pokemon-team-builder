@@ -106,3 +106,9 @@ body {
   /* Support for IE. */
   font-feature-settings: "liga";
 }
+
+#logo {
+  background-color: white;
+  border-radius: 49%;
+  margin-right: 10px;
+}

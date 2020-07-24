@@ -26,7 +26,7 @@ export default function TrainerProfilePage() {
           <Card title={trainer.name}>
             {trainer.teams &&
               trainer.teams.map((team) => (
-                <div>
+                <div className="favoritesContainer">
                   <h5>Team name: {team.name}</h5>
                   {team.pokemon.length > 0 &&
                     team.pokemon.map((pokemon) => (

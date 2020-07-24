@@ -12,7 +12,9 @@ const NavBar = ({ user, handleLogout }) => {
             width="50"
             id="logo"
           />
-          PokeTeam Builder
+          <span href="" class="brand-logo left">
+            PokeTeam Builder
+          </span>
           <ul id="nav-mobile" className="right">
             <li>
               <a href="/" className="nav-link">

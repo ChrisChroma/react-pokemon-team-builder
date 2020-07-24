@@ -9,7 +9,7 @@ import {
   removePokemonFromFavorite,
 } from "../../services/teamService";
 
-const PokedexPage = ({ match, email, user, location }) => {
+const PokedexPage = ({ match, email, user, location, history }) => {
   const [pokemon, setPokemon] = useState(null);
   const [userState, setUserState] = useState(user);
 
@@ -21,20 +21,24 @@ const PokedexPage = ({ match, email, user, location }) => {
   }, [match.params.idx]);
 
   const handleAddTeam = async () => {
+    console.log(history);
     const res = await addPokemonToTeam(
       location.state.teamId,
       pokemon._id,
       email
     );
+    history.push("/trainer/");
   };
 
   const handleAddFavorite = async () => {
+    console.log(history);
     const res = await addPokemonToFavorite(pokemon._id, email);
     const favorites = JSON.parse(await res.json());
     setUserState({
       ...userState,
       favorites,
     });
+    history.push("/trainer/");
   };
 
   const handleRemoveFavorite = async () => {
@@ -44,6 +48,7 @@ const PokedexPage = ({ match, email, user, location }) => {
       ...userState,
       favorites,
     });
+    history.push("/trainer/");
   };
 
   return (
