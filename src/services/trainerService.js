@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001/api";
 
 export async function getTeams(trainerId) {
   return fetch(`${BASE_URL}/trainers/${trainerId}/teams`, {
