@@ -1,22 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./PokedexPage.css";
-import { getPokemonDetails } from "../../services/pokemon-api";
-import { addPokemonToTeam } from "../../services/teamService";
 
-const PokedexPage = ({ match, email }) => {
+import { getPokemonDetails } from "../../services/pokemon-api";
+import {
+  addPokemonToTeam,
+  addPokemonToFavorite,
+  removePokemonFromFavorite,
+} from "../../services/teamService";
+
+const PokedexPage = ({ match, email, user, location }) => {
   const [pokemon, setPokemon] = useState(null);
+  const [userState, setUserState] = useState(user);
 
   useEffect(() => {
     (async () => {
       const pokemon = await getPokemonDetails(match.params.idx);
-      console.log(pokemon);
-      setPokemon(pokemon);
+      setPokemon(pokemon.pokemon);
     })();
   }, [match.params.idx]);
 
   const handleAddTeam = async () => {
-    const res = addPokemonToTeam(pokemon.id);
+    const res = await addPokemonToTeam(
+      location.state.teamId,
+      pokemon._id,
+      email
+    );
+  };
+
+  const handleAddFavorite = async () => {
+    const res = await addPokemonToFavorite(pokemon._id, email);
+    const favorites = JSON.parse(await res.json());
+    setUserState({
+      ...userState,
+      favorites,
+    });
+  };
+
+  const handleRemoveFavorite = async () => {
+    const res = await removePokemonFromFavorite(pokemon._id, email);
+    const favorites = JSON.parse(await res);
+    setUserState({
+      ...userState,
+      favorites,
+    });
   };
 
   return (
@@ -25,46 +52,53 @@ const PokedexPage = ({ match, email }) => {
         <>
           <div className="PokemonPage-image">
             <span>
-              <img height="250" src={pokemon.sprites.front_default} alt="" />
+              <img height="250" src={pokemon.sprite} alt="" />
             </span>
           </div>
           <div>
-            <button onClick={handleAddTeam}>Add to Team</button>
-            <button>Favorite</button>
+            {location.state && location.state.teamId && (
+              <button onClick={() => handleAddTeam(location.state.teamId)}>
+                Add to Team
+              </button>
+            )}
+            <button
+              onClick={
+                userState.favorites.some(
+                  (favoritePokemon) => String(pokemon._id) === favoritePokemon
+                )
+                  ? handleRemoveFavorite
+                  : handleAddFavorite
+              }
+            >
+              {userState.favorites.some(
+                (favoritePokemon) => String(pokemon._id) === favoritePokemon
+              )
+                ? "Remove from favorites"
+                : "Add to favorites"}
+            </button>
           </div>
           <div className="PokemonPage-pokemon">
             <span>Name:</span>
             <span>{pokemon.name}</span>
             <span>Type(s):</span>
             <span>
-              {pokemon.types.map((type) => (
-                <div key={type.type.name}>{type.type.name}</div>
-              ))}
+              <div>{pokemon.type1}</div>
+              <div>{pokemon.type2}</div>
             </span>
-            <span>Base Experience:</span>
-            <span>{pokemon.base_experience}</span>
-            <span>Height:</span>
-            <span>{pokemon.height}</span>
-            <span>Weight:</span>
-            <span>{pokemon.weight}</span>
             <span>Abilities:</span>
             <span>
               {pokemon.abilities.map((ability) => (
-                <div key={ability.ability.name}>{ability.ability.name}</div>
+                <div>{ability}</div>
               ))}
             </span>
-            <span>Speed:</span>
-            <span>{pokemon.stats[0].base_stat}</span>
-            <span>Special-Defense:</span>
-            <span>{pokemon.stats[1].base_stat}</span>
-            <span>Special-Attack:</span>
-            <span>{pokemon.stats[2].base_stat}</span>
-            <span>Defense:</span>
-            <span>{pokemon.stats[3].base_stat}</span>
-            <span>Attack:</span>
-            <span>{pokemon.stats[4].base_stat}</span>
-            <span>HP:</span>
-            <span>{pokemon.stats[5].base_stat}</span>
+            <span>Stats:</span>
+            <span>
+              {pokemon.stats.map((stat) => (
+                <div>
+                  {stat.name} {stat.stat}
+                </div>
+              ))}
+            </span>
             <Link to="/">Back to Index</Link>
           </div>
         </>

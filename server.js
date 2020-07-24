@@ -13,7 +13,11 @@ const trainerRouter = require("./routes/trainers");
 const pokemonRouter = require("./routes/pokemon");
 const cors = require("cors");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(bodyParser.json());

@@ -1,13 +1,14 @@
-const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
+const BASE_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:3001/pokemon";
 
-export function getAllPokemon() {
-  return fetch(`${BASE_URL}?limit=1000`, { mode: "cors" }).then((res) =>
-    res.json()
-  );
+export async function getAllPokemon() {
+  const res = await fetch(`${BASE_URL}`, { mode: "cors" });
+  return res.json();
 }
 
-export function getPokemonDetails(idx) {
-  return fetch(`${BASE_URL}${idx}`, { mode: "cors" }).then((res) => res.json());
+export async function getPokemonDetails(idx) {
+  const res = await fetch(`${BASE_URL}/${idx}`, { mode: "cors" });
+  return res.json();
 }
 
 export function searchPokemon() {}

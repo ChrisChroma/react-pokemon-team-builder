@@ -7,6 +7,7 @@ import SignupPage from "../SignupPage/SignupPage";
 import userService from "../../services/userService";
 import { getAllPokemon } from "../../services/pokemon-api";
 import PokedexPage from "../PokedexPage/PokedexPage";
+import TeamsPage from "../Teams/TeamsPage";
 import TrainerProfilePage from "../TrainerProfilePage/TrainerProfilePage";
 
 class App extends Component {
@@ -16,10 +17,9 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const pokemon = await getAllPokemon();
-    console.log(pokemon.results);
     console.log(this.state.user);
-    this.setState({ pokemon: pokemon.results });
+    const pokemon = await getAllPokemon();
+    this.setState({ pokemon: pokemon.allPokemon });
   }
 
   getPokemon = (idx) => {
@@ -63,15 +63,28 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={() => (
-              <section>
-                {this.state.pokemon.map((pokemon, idx) => (
-                  <Link key={pokemon.name} to={`/pokemon/${idx + 1}`}>
-                    {pokemon.name}
-                  </Link>
-                ))}
-              </section>
-            )}
+            render={(props) => {
+              return (
+                <section>
+                  {console.log(props)}
+                  {this.state.pokemon.map((pokemon) => (
+                    <Link
+                      key={pokemon.name}
+                      to={
+                        props.location.state && props.location.state.teamId
+                          ? {
+                              pathname: `/pokemon/${pokemon._id}`,
+                              state: { teamId: props.location.state.teamId },
+                            }
+                          : `/pokemon/${pokemon._id}`
+                      }
+                    >
+                      {pokemon.name}
+                    </Link>
+                  ))}
+                </section>
+              );
+            }}
           />
           <Route
             path="/pokemon/:idx"
@@ -80,6 +93,7 @@ class App extends Component {
                 {...props}
                 getPokemon={this.getPokemon}
                 email={this.state.user.email}
+                user={this.state.user}
               />
             )}
           />
@@ -90,6 +104,7 @@ class App extends Component {
               <TrainerProfilePage {...this.state.user} />
             )}
           />
+          <Route exact path="/teams/" render={({ history }) => <TeamsPage />} />
         </div>
       </>
     );
