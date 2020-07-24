@@ -87,6 +87,26 @@ async function deleteFromFavorites(req, res) {
   res.status(200).json(JSON.stringify(trainer.favorites));
 }
 
+async function addToFavorites(req, res) {
+  console.log("trainers/addToFavorites");
+  const trainer = await Trainer.findOne({ email: req.body.email });
+  const team = trainer.team.id(req.params.teamId);
+  const pokemon = await Pokemon.findOne({ _id: req.params.pokemonId });
+  team.pokemon.push(pokemon._id);
+  trainer.save();
+}
+
+async function deleteFromFavorites(req, res) {
+  console.log("trainers/deleteFromFavorites");
+  const trainer = await Trainer.findOne({ email: req.user.email });
+  const team = trainer.team.id(req.params.teamId);
+  console.log("team", team);
+  team.pokemon.splice(req.params.pokemonIdx, 1);
+  console.log("req.params.pokemonIdx", req.params.pokemonIdx);
+  trainer.save();
+  res.redirect("/trainers");
+}
+
 async function index(req, res, next) {
   console.log("trainers/index");
   const trainer = await Trainer.findOne({ email: req.user.email });

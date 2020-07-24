@@ -59,6 +59,11 @@ export default function TrainerProfilePage({ name, team, email, _id }) {
     const res = await removePokemonFromTeam(teamId, pokemonId, email);
   };
 
+  const handleDeleteTeam = async (event) => {
+    event.preventDefault();
+    await deleteTeam(teamName, email);
+  };
+
   return (
     <div className="trainerProfile">
       <h1 className="welcomeText">Hey {name}!</h1>
