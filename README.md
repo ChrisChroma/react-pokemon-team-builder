@@ -31,7 +31,7 @@ You can view and use the app from [here](https://evening-everglades-80830.heroku
 
 ![alt text](https://i.gyazo.com/978ff8a105e93302b97d0afb69d5fd60.png "Logo Title Text 1")
 ![alt text](https://i.gyazo.com/81a93fba316a4c14e5806539bab0f8a9.png "Logo Title Text 1")
-![alt text](https://i.gyazo.com/4e2ac9ed8fbc5e2534556a03a7eeb165.png "Logo Title Text 1")
+![alt text](https://i.gyazo.com/38acafaf375928bd01de7e726a01a2f3.png "Logo Title Text 1")
 ![alt text](https://i.gyazo.com/59b3bb64e761f1b3bd54bebf50471d11.png "Logo Title Text 1")
 
 # Future Improvements
